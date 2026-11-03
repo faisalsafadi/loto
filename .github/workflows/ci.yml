@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e ".[change-points,viz,dashboard]"
+      - name: Tests
+        run: python -m pytest tests -q
+      - name: Garde anti-fuite temporelle (règle absolue)
+        run: python -m pytest tests/test_no_leakage.py -q
+
+  format:
+    runs-on: ubuntu-latest
+    continue-on-error: true   # informatif : ne bloque pas tant que le formatage n'est pas homogène
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff
+      - run: ruff check src tests --select E9,F63,F7,F82

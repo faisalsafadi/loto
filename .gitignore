@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+*.egg-info/
+/loteriema.xlsx
+data/*.sqlite
+data/simulations/*.npz
+data/raw/tirages_colles.txt
+data/raw/tirages_colles.txt
+.agents/skills/developing-with-streamlit
+.claude/skills/developing-with-streamlit
+data/raw/*.xlsx
+data/raw/nouveaux_tirages_log.csv
+*.sqlite
+.streamlit/
+.DS_Store

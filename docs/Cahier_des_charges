@@ -1,0 +1,852 @@
+Cahier des charges — LOTO MAROC Research Engine
+
+Version : 1.0
+Statut : spécification de recherche
+Périmètre : historique Loto Maroc ~25 ans, 3 000+ tirages
+Objectif : analyse scientifique, détection de structures/anomalies et expérimentation prédictive
+
+1. Mission du projet
+
+Construire un système de recherche capable d'analyser l'intégralité de l'historique disponible du Loto Maroc afin de :
+
+reconstruire et valider les données historiques ;
+caractériser statistiquement le système ;
+rechercher d'éventuels biais ou changements de régime ;
+détecter d'éventuelles anomalies statistiques ou structurelles ;
+déterminer si certaines informations historiques possèdent une quelconque valeur prédictive hors-échantillon ;
+expérimenter des modèles statistiques et IA ;
+produire des prédictions probabilistes uniquement lorsque celles-ci sont générées avant le tirage concerné ;
+mesurer objectivement la performance réelle des modèles ;
+permettre l'intégration automatique des nouveaux tirages ;
+conserver un historique complet de toutes les prédictions et performances.
+
+Le système ne doit jamais partir de l'hypothèse qu'il existe une anomalie ou une capacité prédictive.
+
+Il doit pouvoir conclure :
+
+« aucune structure exploitable détectée »
+
+si les données ne fournissent aucune preuve suffisante.
+
+2. Principe scientifique fondamental
+
+Le projet doit distinguer quatre niveaux :
+
+Niveau A — Observation
+
+Exemple :
+
+Le numéro 17 est apparu 421 fois.
+
+Niveau B — Anomalie statistique
+
+Exemple :
+
+La fréquence observée s'écarte de ce que prévoit le modèle uniforme.
+
+Niveau C — Anomalie robuste
+
+L'anomalie :
+
+survit aux corrections de comparaisons multiples ;
+apparaît sur plusieurs périodes ;
+est reproduite sur des données indépendantes ;
+ne disparaît pas après modification raisonnable des paramètres.
+Niveau D — pouvoir prédictif
+
+Une caractéristique n'est considérée comme potentiellement prédictive que si elle améliore réellement les performances sur des tirages jamais utilisés pour son développement.
+
+Une corrélation historique seule ne suffit jamais.
+
+3. Données sources
+
+Sources prioritaires :
+
+fichier Excel fourni par l'utilisateur ;
+dépôt GitHub du projet ;
+sources officielles du Loto Maroc lorsque nécessaires pour validation.
+
+Le fichier Excel actuellement fourni :
+
+loteriema(1).xlsx
+
+doit être considéré comme source RAW, c'est-à-dire qu'il ne doit jamais être modifié.
+
+Créer ensuite des versions dérivées :
+
+RAW
+   ↓
+VALIDATED
+   ↓
+ANALYTIC
+   ↓
+FEATURES
+   ↓
+MODEL_DATASET
+4. Conservation des données RAW
+
+Le fichier original doit être conservé intégralement.
+
+Interdiction de :
+
+modifier une date ;
+modifier un numéro ;
+supprimer silencieusement une ligne ;
+corriger une valeur sans journalisation ;
+réordonner définitivement le fichier source.
+
+Toute modification doit être documentée dans un journal :
+
+data_cleaning_log.csv
+
+avec :
+
+row_original
+field
+original_value
+new_value
+reason
+source
+timestamp
+operator
+5. Schéma canonique
+
+Créer une table normalisée :
+
+draw_id
+date
+draw_number_source
+n1
+n2
+n3
+n4
+n5
+n6
+bonus
+year
+month
+day
+weekday
+Important
+
+draw_number_source n'est pas une clé primaire globale.
+
+Un même numéro officiel peut apparaître à différentes années.
+
+L'identifiant interne doit donc être indépendant du numéro officiel.
+
+6. Validation des tirages
+
+Pour chaque ligne :
+
+Numéros principaux
+
+Vérifier :
+
+1 <= n <= 49
+
+et :
+
+n1 != n2 != ... != n6
+Complémentaire
+
+Vérifier :
+
+1 <= bonus <= 49
+
+et déterminer précisément, à partir des règles du jeu pour la période concernée, s'il peut ou non appartenir aux six principaux.
+
+Ne pas supposer cette règle sans vérification.
+
+7. Gestion des dates identiques
+
+Pour cette version du projet, appliquer la règle décidée :
+
+lorsqu'une même date apparaît plusieurs fois, conserver la première occurrence et supprimer les suivantes du dataset ANALYTIC.
+
+Important :
+
+ne jamais supprimer ces lignes du RAW.
+
+Créer :
+
+removed_duplicate_dates.csv
+
+contenant les lignes supprimées.
+
+Ainsi nous pourrons revenir dessus ultérieurement.
+
+8. Ligne manifestement invalide
+
+La ligne :
+
+0 0 0 0 0 0 + 0
+
+doit être considérée comme invalide et exclue de l'analyse.
+
+Mais elle doit rester présente dans RAW et apparaître dans :
+
+invalid_records.csv
+9. Audit qualité
+
+Produire automatiquement :
+
+DATA_QUALITY_REPORT.md
+
+avec :
+
+nombre total de lignes ;
+nombre de lignes valides ;
+nombre invalides ;
+dates manquantes ;
+numéros hors plage ;
+doublons internes ;
+dates dupliquées ;
+tirages manquants potentiels ;
+années représentées ;
+première date ;
+dernière date ;
+nombre de tirages/an.
+10. Reconstruction chronologique
+
+Trier les données par date.
+
+Créer :
+
+chronological_id
+
+qui va de :
+
+1 → N
+
+Ce numéro est exclusivement notre identifiant temporel interne.
+
+11. Statistiques descriptives
+
+Calculer pour chaque numéro 1–49 :
+
+nombre d'apparitions ;
+fréquence ;
+fréquence annuelle ;
+fréquence mensuelle ;
+fréquence par période ;
+écart à l'espérance ;
+intervalle de confiance ;
+z-score descriptif.
+
+Ne jamais présenter un « numéro chaud » comme ayant une meilleure probabilité future sans validation hors-échantillon.
+
+12. Test d'équirépartition
+
+Sous H₀ :
+
+les 49 numéros sont équiprobables.
+
+Pour chaque numéro :
+
+$$ p = \frac{6}{49} $$
+
+Pour N tirages :
+
+$$ E = N\frac{6}{49} $$
+
+Calculer :
+
+$$ \chi^2=\sum_{i=1}^{49}\frac{(O_i-E_i)^2}{E_i} $$
+
+Rapporter :
+
+χ² ;
+degrés de liberté ;
+p-value ;
+taille d'échantillon ;
+intervalle de confiance ;
+interprétation prudente.
+
+Même procédure pour le complémentaire, avec son modèle probabiliste propre.
+
+AMENDEMENT A1 (2026-09-28, avant toute donnée) — loi de référence du χ²
+Les 6 numéros d'un tirage sont distincts (tirage sans remise) : les indicateurs de présence sont
+négativement corrélés (cov = -p(1-p)/48). La statistique de Pearson calculée avec E = N·6/49 n'est
+donc PAS un χ²(48). Son espérance exacte est 43 = 48 × (49-6)/(49-1) ; sa loi est approximativement
+(43/48)·χ²(48). Vérifié par simulation (4 000 séries de 3 159 tirages, seed 42) : moyenne 43,09 ;
+variance 72,2 (contre 77,0 pour un χ² rééchelonné exact : l'approximation n'est pas exacte).
+Un test avec df = 48 rejette H0 dans 0,85 % des cas sous H0 (nominal 5 %) : il est très conservateur.
+Règle : la p-value de référence est la p-value Monte-Carlo (loi nulle simulée avec le vrai schéma
+sans remise). La p-value asymptotique n'est rapportée qu'à titre indicatif, avec le facteur correctif.
+Pour le complémentaire, dériver la loi nulle de son propre schéma (à déterminer via §6, sans supposer).
+
+13. Comparaisons multiples
+
+C'est une exigence majeure.
+
+Le système doit gérer :
+
+Bonferroni ;
+Holm ;
+Benjamini-Hochberg/FDR lorsque pertinent.
+
+Toute recherche comportant plusieurs centaines ou milliers de tests doit enregistrer :
+
+number_of_tests
+raw_p_value
+adjusted_p_value
+correction_method
+
+Interdiction de sélectionner uniquement les résultats « intéressants ».
+
+14. Analyse des gaps
+
+Pour chaque numéro :
+
+dernier tirage
+écart actuel
+écart moyen
+écart médian
+écart maximum
+distribution des gaps
+
+Tester les modèles appropriés.
+
+Ne jamais déclarer :
+
+« ce numéro est en retard donc il doit sortir ».
+
+Tester au contraire si les gaps observés diffèrent réellement du modèle nul.
+
+15. Analyse temporelle
+
+Étudier :
+
+autocorrélation ;
+runs test ;
+dépendance entre tirages consécutifs ;
+répétitions ;
+nombre de numéros communs entre deux tirages ;
+distribution des sommes ;
+distribution pair/impair ;
+bas/haut ;
+dispersion ;
+amplitudes ;
+distance entre numéros.
+16. Paires
+
+Analyser les :
+
+$$ \binom{49}{2}=1176 $$
+
+paires possibles.
+
+Pour chacune :
+
+fréquence observée ;
+fréquence attendue ;
+test approprié ;
+effet ;
+p-value ;
+correction multiple.
+
+Attention :
+
+1176 tests créent un énorme problème de comparaisons multiples.
+
+17. Triplets
+
+Analyser les :
+
+$$ \binom{49}{3}=18424 $$
+
+triplets.
+
+Mais cette analyse doit être effectuée en plusieurs niveaux :
+
+exploratoire
+↓
+filtrage
+↓
+validation
+↓
+confirmation hors-échantillon
+
+Ne jamais présenter un triplet rare/fréquent comme signal simplement parce qu'il possède une petite p-value brute.
+
+18. Analyse des régimes
+
+Découper l'historique :
+
+2001–2005
+2006–2010
+2011–2015
+2016–2020
+2021–2026
+
+Puis rechercher automatiquement les périodes où les propriétés statistiques changent.
+
+Tester ensuite si les changements sont compatibles avec :
+
+fluctuations aléatoires ;
+changement du calendrier ;
+changement des règles ;
+changement de matériel ;
+changement de procédure ;
+changement de fréquence des tirages.
+19. Détection de rupture
+
+Utiliser, lorsque pertinent :
+
+change-point detection ;
+CUSUM ;
+Bayesian change-point ;
+tests de rupture ;
+comparaison avant/après.
+
+Mais :
+
+une rupture statistique ne doit jamais être automatiquement interprétée comme une fraude.
+
+Elle signifie seulement :
+
+« les propriétés statistiques de cette période diffèrent de celles d'une autre période ».
+
+20. Recherche d'anomalies mécaniques
+
+Construire des indicateurs pouvant éventuellement révéler :
+
+biais de certaines boules ;
+biais de certaines positions ;
+corrélations inhabituelles ;
+dépendance temporelle ;
+changement soudain de distribution ;
+anomalies de fréquence.
+
+Mais l'absence d'information physique sur les machines doit être explicitement prise en compte.
+
+21. Hypothèses pré-enregistrées
+
+Créer :
+
+HYPOTHESES.md
+
+Chaque hypothèse possède :
+
+ID
+description
+H0
+H1
+variable
+test
+seuil
+correction
+données utilisées
+date de création
+
+Une hypothèse créée après observation d'un résultat intéressant doit être marquée :
+
+POST_HOC
+
+et ne doit pas être présentée comme une confirmation indépendante.
+
+22. Monte-Carlo
+
+Utiliser Monte-Carlo pour comparer les statistiques observées à des milliers/millions de séries simulées sous H₀.
+
+Par exemple :
+
+10 000
+100 000
+1 000 000
+
+selon le coût informatique.
+
+Comparer :
+
+réel
+vs
+distribution simulée
+
+pour :
+
+fréquence ;
+gaps ;
+paires ;
+répétitions ;
+sommes ;
+statistiques complexes.
+23. Modèles prédictifs
+
+Tester plusieurs familles :
+
+Baseline
+random uniform
+Statistiques
+fréquence
+Bayesian smoothing
+Markov
+modèles temporels
+Machine Learning
+Logistic Regression
+Random Forest
+XGBoost
+LightGBM
+Deep Learning
+
+Uniquement si les données le justifient :
+
+MLP
+LSTM
+Transformer
+
+Mais le deep learning ne doit jamais être utilisé simplement parce qu'il est plus complexe.
+
+24. IA locale
+
+Prévoir une architecture permettant éventuellement d'utiliser un modèle IA local.
+
+L'IA ne doit pas directement « inventer » des numéros.
+
+Elle sert notamment à :
+
+analyser les résultats statistiques ;
+générer des hypothèses ;
+comparer les expériences ;
+détecter des incohérences ;
+proposer des expériences ;
+interpréter les résultats ;
+documenter les découvertes.
+
+Architecture :
+
+Données
+   ↓
+Moteur statistique
+   ↓
+Feature Engine
+   ↓
+Modèles
+   ↓
+Résultats
+   ↓
+IA scientifique locale
+   ↓
+Rapport / hypothèses
+25. Interdiction du data leakage
+
+Règle absolue.
+
+Pour prédire le tirage T :
+
+TRAIN <= T-1
+
+Jamais :
+
+TRAIN <= T
+
+et encore moins :
+
+TRAIN = historique complet
+
+si l'on prétend simuler une prédiction historique.
+
+26. Walk-forward backtesting
+
+Le système doit utiliser :
+
+train
+→ prédiction
+→ résultat réel
+→ ajout du résultat
+→ nouveau train
+→ nouvelle prédiction
+
+Exemple :
+
+2001–2015 → prédire 2016
+2001–2016 → prédire 2017
+2001–2017 → prédire 2018
+...
+
+Puis une validation plus fine :
+
+rolling window
+expanding window
+27. Comparaison obligatoire avec le hasard
+
+Chaque modèle doit être comparé à :
+
+baseline_random
+
+et éventuellement :
+
+frequency_baseline
+
+Un modèle n'est considéré intéressant que s'il apporte une amélioration hors-échantillon reproductible.
+
+28. Métriques
+
+Ne pas utiliser uniquement :
+
+« combien de grilles gagnent ».
+
+Mesurer notamment :
+
+log loss ;
+Brier score ;
+calibration ;
+top-k hit rate ;
+probabilité attribuée aux numéros réellement tirés ;
+performance par combinaison ;
+performance par numéro ;
+stabilité temporelle.
+
+Pour une grille de 6 numéros, documenter clairement ce que signifie chaque métrique.
+
+29. Prédiction finale
+
+Le système peut produire :
+
+probabilité estimée pour chaque numéro
+
+et éventuellement :
+
+ensemble de combinaisons candidates
+
+mais il doit également fournir :
+
+niveau de confiance
+incertitude
+méthode utilisée
+date de génération
+version du modèle
+données utilisées
+30. Gel de prédiction
+
+Avant chaque nouveau tirage :
+
+PREDICTION_YYYY-MM-DD.json
+
+doit être généré et figé.
+
+Après le tirage :
+
+RESULT_YYYY-MM-DD.json
+
+est ajouté.
+
+Puis :
+
+EVALUATION_YYYY-MM-DD.json
+
+compare les deux.
+
+Ainsi, impossible de modifier rétroactivement une prédiction.
+
+31. Intégration des futurs tirages
+
+Après chaque nouveau tirage :
+
+nouveau résultat
+      ↓
+validation
+      ↓
+ajout dataset
+      ↓
+évaluation ancienne prédiction
+      ↓
+recalcul modèles
+      ↓
+nouvelle prédiction
+
+Les résultats futurs doivent donc bien être pris en considération, mais uniquement après leur réalisation.
+
+C'est essentiel.
+
+32. Versionnement
+
+Chaque expérience doit posséder :
+
+experiment_id
+dataset_version
+feature_version
+model_version
+parameters
+timestamp
+random_seed
+
+Utiliser Git pour le code et les configurations.
+
+33. Reproductibilité
+
+Une expérience doit pouvoir être relancée et produire le même résultat lorsque :
+
+dataset
+code
+configuration
+random seed
+
+sont identiques.
+
+34. Architecture logicielle
+
+Proposition :
+
+loto-research/
+│
+├── data/
+│   ├── raw/
+│   ├── validated/
+│   ├── analytic/
+│   └── predictions/
+│
+├── src/
+│   ├── ingestion/
+│   ├── validation/
+│   ├── cleaning/
+│   ├── statistics/
+│   ├── simulation/
+│   ├── features/
+│   ├── models/
+│   ├── backtesting/
+│   ├── anomaly_detection/
+│   └── reporting/
+│
+├── experiments/
+│
+├── reports/
+│
+├── tests/
+│
+├── configs/
+│
+└── docs/
+35. Tests automatisés
+
+Créer des tests pour :
+
+validation des numéros ;
+absence de doublons internes ;
+parsing des dates ;
+calcul des fréquences ;
+calcul χ² ;
+simulation Monte-Carlo ;
+séparation temporelle ;
+absence de leakage ;
+reproductibilité ;
+prédiction figée.
+36. Rapport final
+
+Claude devra produire automatiquement :
+
+EXECUTIVE_SUMMARY.md
+DATA_QUALITY_REPORT.md
+STATISTICAL_REPORT.md
+TEMPORAL_REPORT.md
+ANOMALY_REPORT.md
+MODEL_REPORT.md
+BACKTEST_REPORT.md
+PREDICTION_REPORT.md
+
+Chaque conclusion doit être classée :
+
+OBSERVED
+STATISTICALLY_SIGNIFICANT
+ROBUST
+REPLICATED
+PREDICTIVE
+
+sans confondre ces niveaux.
+
+37. Règle concernant une éventuelle fraude
+
+Le système peut rechercher des anomalies compatibles avec un biais, mais il ne doit jamais conclure :
+
+« le Loto est truqué »
+
+sur la seule base des données statistiques.
+
+Il devra plutôt produire :
+
+Aucune anomalie détectée
+
+ou :
+
+Anomalie statistique détectée
+
+ou :
+
+Anomalie robuste nécessitant investigation complémentaire
+
+et expliquer exactement pourquoi.
+
+38. Critère ultime de réussite
+
+Le projet ne sera pas considéré comme réussi parce qu'il trouve :
+
+des numéros chauds ;
+des numéros froids ;
+des paires ;
+des triplets ;
+des corrélations ;
+une p-value faible ;
+un modèle IA qui fonctionne sur l'historique.
+
+Le véritable critère sera :
+
+Une amélioration reproductible et statistiquement défendable sur des tirages jamais utilisés pour construire le modèle.
+
+39. Ordre d'exécution obligatoire
+
+Claude doit exécuter les tâches dans cet ordre :
+
+01 — Importer les données
+02 — Vérifier leur intégrité
+03 — Construire RAW
+04 — Construire VALIDATED
+05 — Appliquer le nettoyage défini
+06 — Construire ANALYTIC
+07 — Rapport qualité
+08 — Analyse descriptive
+09 — Équirépartition
+10 — Complémentaire
+11 — Gaps
+12 — Indépendance
+13 — Répétitions
+14 — Paires
+15 — Triplets
+16 — Analyse temporelle
+17 — Change points
+18 — Monte-Carlo
+19 — Hypothèses
+20 — Baselines
+21 — ML
+22 — Backtesting
+23 — Walk-forward
+24 — IA locale
+25 — Ensemble de modèles
+26 — Évaluation
+27 — Prédiction prospective
+28 — Intégration du nouveau tirage
+29 — Réévaluation
+30 — Rapport final
+
+Claude ne doit pas sauter directement à l'étape 21.
+
+40. Règle de collaboration avec Claude
+
+Claude doit fonctionner comme un chercheur/auditeur, pas comme un générateur de numéros.
+
+À chaque étape :
+
+expliquer ce qui va être testé ;
+exécuter ;
+montrer les résultats ;
+interpréter ;
+chercher activement une explication alternative ;
+décider si l'hypothèse survit ;
+enregistrer la conclusion ;
+seulement ensuite passer à l'étape suivante.
+
+Et surtout :
+
+Claude doit avoir le droit de conclure que notre hypothèse est fausse.
+
+C'est précisément ce qui rendra le projet beaucoup plus sérieux.

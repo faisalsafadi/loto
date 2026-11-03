@@ -1,0 +1,14 @@
+{
+  "run_id": "2026-09-29T09:05:15.466837+00:00",
+  "timestamp": "2026-09-29T09:05:15.466837+00:00",
+  "phase": 4,
+  "dataset_version": "DATASET_v001",
+  "git_commit": "5a89e06924ce606111d0126ddf951a55214988d2",
+  "python_version": "3.12.3",
+  "dependencies": {
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "statsmodels": "0.15.0"
+  }
+}
