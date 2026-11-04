@@ -35,6 +35,14 @@ every combination of the 6/49 has a probability of 1 in 13,983,816. It never con
 | Local dashboard | Streamlit, read-only by default, no ranking of numbers, confidence bands, comparison with pure chance |
 | Frozen exploratory predictions | Frozen **before** each draw, scored afterwards. **Not validated**: see `docs/PREDICTIONS_PROTOCOL.md` |
 
+
+
+![Tableau de bord : vue d'ensemble](docs/screenshots/dashboard-overview.png)
+![Tableau de bord : fréquences et bandes d'écart attendu par hasard](docs/screenshots/frequences.png)
+![Tableau de bord : tests statistiques](docs/screenshots/statistical-analysis.png)
+
+
+
 ### Quick start
 
 ```bash
@@ -45,6 +53,7 @@ python -m pytest tests -q          # about 250 tests
 loto init-db                       # builds data/loto.sqlite from data/public/loto_maroc_draws.csv
 loto analyze                       # quick analysis (about 2 minutes)
 loto dashboard                     # local dashboard (read-only)
+loto dashboard --writable          # same + entry of draws and locking of predictions
 python scripts/m4_run_benchmark.py # benchmark of the detectors (about 3 minutes)
 ```
 
@@ -106,6 +115,7 @@ python -m pytest tests -q          # environ 250 tests
 loto init-db                       # crée data/loto.sqlite depuis data/public/loto_maroc_draws.csv
 loto analyze                       # analyse rapide (environ 2 minutes)
 loto dashboard                     # tableau de bord local (lecture seule)
+loto dashboard --writable          # idem + saisie des tirages et figeage des prédictions
 python scripts/m4_run_benchmark.py # banc d'essai des détecteurs (environ 3 minutes)
 ```
 
