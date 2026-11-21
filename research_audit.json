@@ -1,0 +1,130 @@
+{
+  "created": "2026-09-27T23:43:26Z",
+  "note": "Journal exhaustif de tout ce qui est essaye, y compris les tentatives non retenues (IMPLEMENTATION_SPEC 56).",
+  "total_tests_registered": 19905,
+  "time_windows_tried": [],
+  "thresholds_tried": [],
+  "models_tried": [],
+  "experiments_discarded": [],
+  "test_batches": [
+    {
+      "phase": 4,
+      "label": "phase4_main_numbers",
+      "timestamp": "2026-09-29T09:05:15.466837+00:00",
+      "number_of_tests": 49,
+      "method": "holm",
+      "alpha": 0.05
+    },
+    {
+      "phase": 4,
+      "label": "phase4_bonus_numbers",
+      "timestamp": "2026-09-29T09:05:15.466837+00:00",
+      "number_of_tests": 49,
+      "method": "fdr_bh",
+      "alpha": 0.05
+    },
+    {
+      "phase": 4,
+      "label": "phase4_positions",
+      "timestamp": "2026-09-29T09:05:15.466837+00:00",
+      "number_of_tests": 6,
+      "method": "bonferroni",
+      "alpha": 0.05,
+      "retracted": true,
+      "retraction_reason": "Modele nul invalide : 99.90% des lignes sont triees (statistiques d'ordre, jamais uniformes par construction), pas l'ordre de tirage."
+    },
+    {
+      "phase": 5,
+      "label": "phase5_h003_permutation",
+      "timestamp": "2026-09-29T18:41:14.978209+00:00",
+      "number_of_tests": 1,
+      "method": "permutation",
+      "n_permutations": 20000,
+      "seed": 42
+    },
+    {
+      "phase": 5,
+      "label": "phase5_h007_homogeneity_main",
+      "timestamp": "2026-09-29T18:41:14.978209+00:00",
+      "number_of_tests": 1,
+      "method": "chi2_contingency"
+    },
+    {
+      "phase": 5,
+      "label": "phase5_h007_homogeneity_bonus",
+      "timestamp": "2026-09-29T18:41:14.978209+00:00",
+      "number_of_tests": 1,
+      "method": "chi2_contingency"
+    },
+    {
+      "phase": "5b",
+      "label": "phase5b_cusum_sum",
+      "timestamp": "2026-09-30T08:26:07.699854+00:00",
+      "number_of_tests": 1,
+      "method": "cusum_permutation"
+    },
+    {
+      "phase": "5b",
+      "label": "phase5b_cusum_bonus",
+      "timestamp": "2026-09-30T08:26:07.699854+00:00",
+      "number_of_tests": 1,
+      "method": "cusum_permutation"
+    },
+    {
+      "phase": "5b",
+      "label": "phase5b_autocorrelation_main",
+      "timestamp": "2026-09-30T08:26:07.699854+00:00",
+      "number_of_tests": 49,
+      "method": "fdr_bh"
+    },
+    {
+      "phase": "5b",
+      "label": "phase5b_autocorrelation_bonus",
+      "timestamp": "2026-09-30T08:26:07.699854+00:00",
+      "number_of_tests": 49,
+      "method": "fdr_bh"
+    },
+    {
+      "phase": 6,
+      "label": "phase6_h004_gaps_main",
+      "timestamp": "2026-10-01T11:15:35.615371+00:00",
+      "number_of_tests": 49,
+      "method": "fdr_bh"
+    },
+    {
+      "phase": 6,
+      "label": "phase6_gaps_bonus_exploratory",
+      "timestamp": "2026-10-01T11:15:35.615371+00:00",
+      "number_of_tests": 49,
+      "method": "fdr_bh"
+    },
+    {
+      "phase": 7,
+      "label": "phase7_pairs_exploration",
+      "timestamp": "2026-10-01T11:27:20.562626+00:00",
+      "number_of_tests": 1176,
+      "method": "fdr_bh"
+    },
+    {
+      "phase": 7,
+      "label": "phase7_pairs_confirmation",
+      "timestamp": "2026-10-01T11:27:20.562626+00:00",
+      "number_of_tests": 0,
+      "method": "holm"
+    },
+    {
+      "phase": 7,
+      "label": "phase7_triplets_exploration",
+      "timestamp": "2026-10-01T11:27:20.562626+00:00",
+      "number_of_tests": 18424,
+      "method": "fdr_bh"
+    },
+    {
+      "phase": 7,
+      "label": "phase7_triplets_confirmation",
+      "timestamp": "2026-10-01T11:27:20.562626+00:00",
+      "number_of_tests": 0,
+      "method": "holm"
+    }
+  ]
+}

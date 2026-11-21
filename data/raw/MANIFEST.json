@@ -1,0 +1,89 @@
+{
+  "filename": "loteriema.xlsx",
+  "sha256": "eb5b5be17b050542b721cea1ad09e71ffc29b1dbfa92742647162c3d7eeb246b",
+  "size_bytes": 204474,
+  "import_timestamp": "2026-09-28T10:59:06.988245+00:00",
+  "source": "user_upload",
+  "raw_copy": "data/raw/loteriema_20260928_original.xlsx",
+  "rows_expected": 3159,
+  "rows_observed": 3155,
+  "row_count_matches_expected": false,
+  "row_count_difference": -4,
+  "sheets": [
+    {
+      "name": "Récupéré_Feuil1",
+      "state": "visible",
+      "dimensions": "A1:J3156",
+      "header": [
+        "N. du tirage",
+        "Résultats 1",
+        "Résultats 2",
+        "Résultats 3",
+        "Résultats 4",
+        "Résultats 5",
+        "Résultats 6",
+        "C",
+        "DATE TIRAGE",
+        null
+      ],
+      "data_rows_total": 3155,
+      "data_rows_empty": 0,
+      "data_rows_nonempty": 3155,
+      "cell_types_by_column": {
+        "N. du tirage": {
+          "int": 2,
+          "str": 3153
+        },
+        "Résultats 1": {
+          "int": 3155
+        },
+        "Résultats 2": {
+          "int": 3155
+        },
+        "Résultats 3": {
+          "int": 3155
+        },
+        "Résultats 4": {
+          "int": 3155
+        },
+        "Résultats 5": {
+          "int": 3155
+        },
+        "Résultats 6": {
+          "int": 3155
+        },
+        "C": {
+          "int": 3155
+        },
+        "DATE TIRAGE": {
+          "datetime": 2,
+          "str": 3153
+        }
+      },
+      "first_data_row_raw": [
+        "115",
+        "8",
+        "46",
+        "39",
+        "41",
+        "33",
+        "40",
+        "30",
+        "2026-09-26 00:00:00",
+        "None"
+      ],
+      "last_data_row_raw": [
+        "98",
+        "3",
+        "22",
+        "29",
+        "33",
+        "39",
+        "44",
+        "37",
+        "2001-03-17",
+        "None"
+      ]
+    }
+  ]
+}

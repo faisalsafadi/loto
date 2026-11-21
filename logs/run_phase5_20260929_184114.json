@@ -1,0 +1,16 @@
+{
+  "run_id": "2026-09-29T18:41:14.978209+00:00",
+  "timestamp": "2026-09-29T18:41:14.978209+00:00",
+  "phase": 5,
+  "dataset_version": "DATASET_v001",
+  "git_commit": "d5a10fa39902a83bead91943ce27ec2973030b9c",
+  "python_version": "3.12.3",
+  "dependencies": {
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "seed": 42,
+  "n_permutations": 20000,
+  "elapsed_seconds_h003": 12.763247966766357
+}

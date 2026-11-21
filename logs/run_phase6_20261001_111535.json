@@ -1,0 +1,15 @@
+{
+  "run_id": "2026-10-01T11:15:35.615371+00:00",
+  "timestamp": "2026-10-01T11:15:35.615371+00:00",
+  "phase": 6,
+  "dataset_version": "DATASET_v001",
+  "git_commit": "d68eef1acf7e16274ce53912a8810ff34cbaaa1c",
+  "python_version": "3.12.3",
+  "dependencies": {
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "seed": 42,
+  "n_calibration": 2000
+}

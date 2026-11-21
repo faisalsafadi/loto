@@ -1,0 +1,16 @@
+{
+  "run_id": "2026-09-29T00:13:52.717258+00:00",
+  "timestamp": "2026-09-29T00:13:52.717258+00:00",
+  "phase": 3,
+  "dataset_version": "DATASET_v001",
+  "git_commit": "2d6d4d144e97e43267b393ef9f30da8b1aa56dce",
+  "python_version": "3.12.3",
+  "dependencies": {
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "seed": 42,
+  "n_simulations": 100000,
+  "monte_carlo_elapsed_seconds": 104.73571181297302
+}

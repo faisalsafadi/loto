@@ -1,0 +1,106 @@
+{
+  "n_draws_total": 3155,
+  "train_fraction": 0.8,
+  "cutoff_chronological_id": 2524,
+  "n_train": 2524,
+  "n_test": 631,
+  "results": {
+    "baseline_random": {
+      "mean_logloss": 0.3717761799434528,
+      "mean_brier": 0.10745522698875468,
+      "mean_hits_per_draw": 0.7353407290015848,
+      "hits_distribution": {
+        "0": 284,
+        "1": 245,
+        "2": 88,
+        "3": 13,
+        "4": 1,
+        "5": 0,
+        "6": 0
+      },
+      "mean_p_drawn": 0.12244897959183672,
+      "mean_p_not_drawn": 0.1224489795918367
+    },
+    "frequency_baseline": {
+      "mean_logloss": 0.37209688015647796,
+      "mean_brier": 0.10752336298678493,
+      "mean_hits_per_draw": 0.7242472266244057,
+      "hits_distribution": {
+        "0": 269,
+        "1": 275,
+        "2": 80,
+        "3": 6,
+        "4": 1,
+        "5": 0,
+        "6": 0
+      },
+      "mean_p_drawn": 0.12230285241416812,
+      "mean_p_not_drawn": 0.12246936943058119
+    },
+    "logistic_regression": {
+      "mean_logloss": 0.37187989479896705,
+      "mean_brier": 0.10747758391900263,
+      "mean_hits_per_draw": 0.6893819334389857,
+      "hits_distribution": {
+        "0": 300,
+        "1": 239,
+        "2": 80,
+        "3": 12,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "mean_p_drawn": 0.12247693833312877,
+      "mean_p_not_drawn": 0.12256389619162716
+    }
+  },
+  "comparisons": {
+    "frequency_vs_random": {
+      "statistic": 85951.0,
+      "p_value": 0.0026926153443869913,
+      "mean_diff": 0.00032070021302512623,
+      "median_diff": 0.0002669762431909972,
+      "n": 631,
+      "p_value_holm": 0.007550001804523037,
+      "reject_h0": true
+    },
+    "logistic_vs_random": {
+      "statistic": 85857.0,
+      "p_value": 0.002516667268174346,
+      "mean_diff": 0.00010371485551418445,
+      "median_diff": 0.00010368317918607595,
+      "n": 631,
+      "p_value_holm": 0.007550001804523037,
+      "reject_h0": true
+    },
+    "logistic_vs_frequency": {
+      "statistic": 90708.0,
+      "p_value": 0.049714417121578834,
+      "mean_diff": -0.00021698535751094175,
+      "median_diff": -8.328679731445243e-05,
+      "n": 631,
+      "p_value_holm": 0.049714417121578834,
+      "reject_h0": true
+    }
+  },
+  "holm_correction": {
+    "method": "holm",
+    "alpha": 0.05,
+    "number_of_tests": 3
+  },
+  "any_significant_after_holm": true,
+  "logistic_regression_coefficients": {
+    "freq_last_10": -0.009776339072038235,
+    "freq_last_20": 0.018327379092236952,
+    "freq_last_50": -0.018419434866295745,
+    "freq_last_100": 0.00023131203947423813,
+    "freq_last_250": 0.0052350340661541876,
+    "gap_current_adjusted": 0.006436868205306671,
+    "prev_sum": -7.482659109112667e-05,
+    "prev_odd_count": 3.276095530804771e-05,
+    "prev_low_count": -4.3606151932095284e-05,
+    "prev_overlap": -0.00012110259409817485
+  },
+  "note": "Split unique train/test (pas walk-forward). H008 reste UNTESTED ; test officiel en Phase 10.",
+  "created_at": "2026-10-04T08:20:58.705050+00:00"
+}

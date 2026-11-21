@@ -1,0 +1,24 @@
+data:
+  main_numbers: 49
+  numbers_per_draw: 6
+  duplicate_date_policy: keep_first
+
+statistics:
+  alpha: 0.05
+  multiple_testing: holm
+
+simulation:
+  n_simulations: 100000
+  seed: 42
+
+backtest:
+  minimum_training_draws: 500
+  walk_forward: true
+
+models:
+  baseline_random: true
+  logistic_regression: true
+  random_forest: true
+  xgboost: true
+  lightgbm: false
+  neural_network: false

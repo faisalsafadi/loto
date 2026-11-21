@@ -1,0 +1,17 @@
+{
+  "run_id": "2026-10-04T08:20:58.705050+00:00",
+  "timestamp": "2026-10-04T08:20:58.705050+00:00",
+  "phase": 9,
+  "dataset_version": "DATASET_v001",
+  "features_version": "FEATURES_v001",
+  "git_commit": "cd4e595ff17a7ba330ea3c0e9b009cb80169c475",
+  "python_version": "3.12.3",
+  "dependencies": {
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "seed": 42,
+  "train_fraction": 0.8
+}
