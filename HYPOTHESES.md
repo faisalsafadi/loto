@@ -275,9 +275,16 @@ chaque tirage ? Wilcoxon unilatéral apparié, Holm sur 2 comparaisons, alpha 0,
 prédictions évaluées. Résumés descriptifs seulement avant. Modèles fixés (hasard, fréquence alpha 10, logistique C 1,0).
 Détail : docs/PREDICTIONS_PROTOCOL.md. Statut du résultat attendu : H0 non rejetée (Phase 10 : modèles moins bons que le hasard).
 
-## H011 — 2026-11-20 (PRE_REGISTERED, complémentaire des prédictions figées)
+
+## H011 — 2026-11-21 (PRE_REGISTERED, complémentaire des prédictions figées)
 La fréquence lissée du complémentaire (alpha 10, 49 valeurs) réduit-elle le log loss par rapport au hasard uniforme
 sur les prédictions figées avant chaque tirage ? Wilcoxon unilatéral apparié, une seule comparaison, alpha 0,05,
 test unique à n_star = 500 prédictions évaluées avec complémentaire. Résumés descriptifs seulement avant.
 Seules comptent les prédictions figées à partir du 2026-11-11 (fichiers de format 2).
-Détail : docs/PREDICTIONS_PROTOCOL.md, section 4b. Résultat attendu : H0 non rejetée (H002 n'a pas été confirmée).
+Détail : docs/PREDICTIONS_PROTOCOL.md, section 4b (pré-enregistrée le 2026-11-11 dans le protocole). Résultat attendu : H0 non rejetée.
+
+## Note de transparence du 2026-11-24 — H011
+Le texte de H011 a été collé dans ce registre le 2026-11-22 (heure de l'ordinateur), après le gel de la prédiction
+du 2026-11-23 (2026-11-21). H011 était pourtant entièrement définie, avant tout résultat, dans
+docs/PREDICTIONS_PROTOCOL.md (section 4b, datée du 2026-11-11) ; aucun complémentaire n'avait été évalué à cette
+date. L'entrée du registre est tardive, pas son contenu.

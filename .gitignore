@@ -10,6 +10,7 @@ data/raw/tirages_colles.txt
 data/raw/tirages_colles.txt
 .agents/skills/developing-with-streamlit
 .claude/skills/developing-with-streamlit
+.vscode/
 data/raw/*.xlsx
 data/raw/nouveaux_tirages_log.csv
 *.sqlite
