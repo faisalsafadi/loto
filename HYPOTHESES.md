@@ -288,3 +288,11 @@ Le texte de H011 a été collé dans ce registre le 2026-11-22 (heure de l'ordin
 du 2026-11-23 (2026-11-21). H011 était pourtant entièrement définie, avant tout résultat, dans
 docs/PREDICTIONS_PROTOCOL.md (section 4b, datée du 2026-11-11) ; aucun complémentaire n'avait été évalué à cette
 date. L'entrée du registre est tardive, pas son contenu.
+
+## Rectification du 2026-11-25 — note de transparence H011
+La note de transparence du 2026-11-24 ci-dessus est INEXACTE et reste en place (le registre est en ajout seul).
+L'historique Git montre que le bloc H011 a été inscrit dans ce registre dans le commit 983ce1b, daté du
+2026-11-21 18:55:12 UTC, soit environ 3 heures AVANT le gel de la prédiction du 2026-11-23
+(2026-11-21T22:01:14 UTC), qui contient déjà un complémentaire. H011 était donc inscrite avant la première prédiction
+qui la concerne, et aucun complémentaire n'avait été évalué. La note erronée venait d'une lecture de la date de
+dernière modification du fichier (2026-11-22), qui ne date pas la première inscription.
